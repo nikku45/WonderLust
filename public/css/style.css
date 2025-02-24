@@ -1,0 +1,321 @@
+body{
+    background-color: rgba(76, 102, 39, 0.225);
+}
+.navbar{
+    height: 5rem;
+    background-color: white;
+}
+.fa-airbnb{
+    color: #fe424d;
+    font-size: 2rem;
+}
+.nav-link{
+    color: #2222 important;
+}
+.f-info-links a{
+  text-decoration: none;
+  color: #222222;
+
+}
+.f-info-links a:hover{
+    text-decoration: underline;
+}
+.f-info{
+   display: flex;
+   text-align: right;
+}
+
+/*Cards*/
+.listing-card{
+    border: none !important;
+    margin-bottom: 1rem !important;
+    padding: 0;
+    
+}
+.card-img-top{
+  border-radius: 1 rem !important;
+  width: 100% !important;
+  object-fit: cover !important;
+}
+.card-body{
+    padding: 0 !important;
+    
+
+}
+.card-text p{
+    font-weight: 400 !important;
+}
+.listing-link{
+    text-decoration: none;
+}
+.card:hover{
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+/*Footer*/
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    margin-top: auto;
+    background-color: #f8f9fa; /* Example background color */
+    text-align: center;
+    padding: 20px 10px;
+    border-top: 1px solid #ddd; /* Optional border for separation */
+}
+
+.f-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.f-info-socials i {
+    font-size: 1.5rem;
+    margin: 0 5px;
+    color: #6c757d; /* Example icon color */
+    transition: color 0.3s ease;
+}
+
+.f-info-socials i:hover {
+    color: #007bff; /* Change color on hover */
+}
+
+.f-info-links a {
+    text-decoration: none;
+    color: #007bff;
+    margin: 0 10px;
+    font-size: 0.9rem;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+}
+
+.f-info-brand {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+
+/*New Listing*/
+.form-container {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin-top:0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.form-box {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.form-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #333;
+}
+
+.form-input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.form-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #c3042a8f;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.form-button:hover {
+    background-color: #8d0215db;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: #555;
+}
+
+/*Show Page*/
+.listing-container {
+    width: 80%;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.listing-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.listing-image {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+.listing-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.listing-details {
+    margin-top: 1.5rem;
+}
+
+.listing-description {
+    font-size: 1rem;
+    color: #555;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.listing-price {
+    font-size: 1.25rem;
+    color: #27ae60;
+    font-weight: bold;
+    text-align: center;
+}
+
+.listing-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.edit-link {
+    text-decoration: none;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.edit-link:hover {
+    background-color: #c0392b;
+}
+
+.delete-button{
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+}
+/*Edit Page*/
+.edit-listing-container {
+    width: 60%;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.edit-title {
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.submit-button {
+    background-color: #a91e1eda;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #219150;
+}

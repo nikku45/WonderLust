@@ -1,0 +1,32 @@
+<% layout("layouts/boilerplate") %>
+<body>
+    <div class="edit-listing-container">
+        <h2 class="edit-title">You are about to make changes for <%= flisting.title %></h2>
+        <form class="edit-form needs-validation" method="post" action="/listings/<%= flisting._id %>?_method=PUT" novalidate  >
+            <div class="form-group">
+                <label for="image">Image URL</label>
+                <input id="image" name="image" type="text" value="<%= flisting.image.url %>" class="form-control" required>
+                <div class="valid-feedback">
+                    Looks good!
+                  </div>
+            </div>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input id="title" name="title" type="text" value="<%= flisting.title %>" class="form-control" required>
+                <div class="valid-feedback">
+                    Looks good!
+                  </div>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" class="form-control" required><%= flisting.description %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input id="price" name="price" type="text" value="<%= flisting.price %>" class="form-control" required>
+            </div>
+            <button class="submit-button" type="submit">Submit</button>
+        </form>
+    </div>
+    
+</body>
