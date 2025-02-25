@@ -1,6 +1,6 @@
 <% layout("layouts/boilerplate") %>
 <div class="alert alert-danger mt-3" role="alert">
  <h4 class="alert-heading"><%=err.message%></h4>
- <p></p>
+ <p><%=err.stack%></p>
  <a href="/listings" class="btn btn-primary">Back to Listings</a>
 </div>

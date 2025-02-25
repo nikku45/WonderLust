@@ -1,11 +1,13 @@
 const mongoose=require("mongoose");
 const review = require("./review");
+
+const { required } = require("joi");
 const Schema=mongoose.Schema;
 
 const listingschema=new Schema({
     title:{
     type:String,
-    required:true
+   
     },
     description:{
       type:String
@@ -42,5 +44,16 @@ const listingschema=new Schema({
     ]   
  
  });
+ 
+ listingschema.post('findOneAndDelete', async function (doc) {
+   
+    if (doc) {
+        // `doc` contains the deleted listing
+        await mongoose.model('review').deleteMany({
+            _id: { $in: doc.reviews }
+        });
+        // console.log("reviews also has been deleted")
+    }
+});
 const listing=mongoose.model("listing",listingschema);
 module.exports=listing;

@@ -9,6 +9,8 @@ const ejsMate=require("ejs-mate");
 const wrapAsync=require("./utils/WrapAsync.js")
 const ExpressError=require("./utils/ExpressError.js")
 const {listingSchema,reviewSchema}=require("./schema.js");
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 
 
@@ -21,10 +23,13 @@ app.engine("ejs",ejsMate);
 app.use(express.static(path.join(__dirname,"/public")))
 
 
+
 const mongoose_url="mongodb://127.0.0.1:27017/WanderLust";
 
 //validating schema with joi from schema.js
 const validateListing=(req,res,next)=>{
+    console.log("Inside the middleware")
+    console.log(req.body);
     const {error}=listingSchema.validate(req.body);
     if(error){
         const msg=error.details.map(el=>el.message).join(",");
@@ -35,6 +40,7 @@ const validateListing=(req,res,next)=>{
     }
 }
 const validatereview=(req,res,next)=>{
+
     const {error}=reviewSchema.validate(req.body);
     if(error){
         const msg=error.details.map(el=>el.message).join(",");
@@ -60,11 +66,15 @@ app.get("/listings/new",(req,res)=>{
     res.render("listings/new.ejs");
 })
 app.post("/listing",validateListing,wrapAsync(async(req,res,next)=>{
-  
-        let newlisting=new listing(req.body.listing)
-        await newlisting.save()
+     ;
+     
+        let newlisting=new listing(req.body)
+        let result=await newlisting.save()
+       
+        
         res.redirect("/listings");
 }))
+
 //showing details of listing
 app.get("/listings/:id",wrapAsync(async(req,res)=>{
     let { id }=req.params;
@@ -99,9 +109,7 @@ app.delete("/listings/:id",wrapAsync(async(req,res)=>{
     let{id}=req.params;
  
    await listing.findByIdAndDelete(id);
-
    
-    console.log("query has been executed succesfully");
     res.redirect("/listings");
      
 }))
@@ -122,7 +130,7 @@ app.post("/listings/:id/review",validatereview,wrapAsync(async(req,res)=>{
 }))
 //Delet Review Route
 app.delete("/listings/:id/reviews/:reviewId",wrapAsync(async(req,res)=>{
-    console.log("request created");
+    
     let {id,reviewId}=req.params;
     await review.findByIdAndDelete(reviewId);
     await listing.findByIdAndUpdate(id,{$pull:{review:reviewId}})

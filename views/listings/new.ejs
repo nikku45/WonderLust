@@ -1,7 +1,7 @@
 <% layout("layouts/boilerplate") %>
 <body>
     
-    <form  class="form-box needs-validation" method="post" action="/listing" novalidate>
+    <form  class="form-box needs-validation" method="post" action="/listing"   novalidate>
         <h1 class="form-title">Enter Details For Adding New Listing</h1>
 
         <label for="title" class="form-label">Title</label>
@@ -9,7 +9,7 @@
        
 
         <label for="url" class="form-label">Image URL</label>
-        <input id="url" name="url" class="form-input form-control" placeholder="Enter image URL" required>
+        <input id="url" name="image[url]" class="form-input form-control" placeholder="Enter image URL" required>
 
         <label for="description" class="form-label">Description</label>
         <input id="description" name="description" class="form-input form-control" placeholder="Enter description" required>
@@ -18,7 +18,7 @@
         <input id="price" name="price" class="form-input form-control" placeholder="Enter price" required>
 
         <label for="location" class="form-label">Location</label>
-        <input id="location" name="Location" class="form-input form-control" placeholder="Enter location" required>
+        <input id="location" name="location" class="form-input form-control" placeholder="Enter location" required>
 
         <button type="submit" class="form-button">Submit</button>
     </form>
