@@ -1,15 +1,13 @@
 const express=require("express");
 const app=express();
 const router=express.Router();
-const listing = require("../modules/listing");
-const review = require("../modules/review");
-const mongoose=require("mongoose");
+const listing = require("../models/listing.js");
 const path=require("path");
 const methodOverride=require("method-override");
 const ejsMate=require("ejs-mate");
 const wrapAsync=require("../utils/WrapAsync.js")
 const ExpressError=require("../utils/ExpressError.js")
-const {listingSchema,reviewSchema}=require("../schema.js");
+const {listingSchema}=require("../schema.js");
 
 
 app.set("view engine","ejs");
@@ -52,12 +50,13 @@ router.get("/listings/new",(req,res)=>{
     res.render("listings/new.ejs");
 })
 router.post("/listing",validateListing,wrapAsync(async(req,res,next)=>{
-     ;
+     
      
         let newlisting=new listing(req.body)
         let result=await newlisting.save()
        
-        
+        req.flash('success', 'New Listing has been added');
+
         res.redirect("/listings");
 }))
 
@@ -66,6 +65,10 @@ router.get("/listings/:id",wrapAsync(async(req,res)=>{
     let { id }=req.params;
     console.log(id);
     let flisting=await listing.findById(id).populate("reviews");
+    if(!flisting){
+        req.flash('error', 'Cannot find that listing');
+        return res.redirect("/listings");
+    }   
     // console.log(findedlisting);
    res.render("listings/show.ejs",{flisting});
 }))
@@ -75,8 +78,12 @@ router.get("/listings/:id/edit",wrapAsync(async(req,res)=>{
     let {id}=req.params;
     console.log(id);
     const flisting= await listing.findById(id);
-    res.render("listings/edit.ejs",{ flisting });
-}))
+    if(!flisting){
+        req.flash('error', 'Cannot find that listing');
+        return res.redirect("/listings");
+    }
+    res.render("listings/edit.ejs",{flisting});
+    }))
 //update route
 router.put("/listings/:id",wrapAsync(async(req,res)=>{
     let {id}=req.params;
@@ -84,6 +91,7 @@ router.put("/listings/:id",wrapAsync(async(req,res)=>{
     let {description,price}=req.body;
      await listing.findByIdAndUpdate(id,{description:description,price:price});
      console.log("details has been updated");
+     req.flash('success', 'Listing has been updated');
      res.redirect(`/listings/${id}`);
     
 
@@ -95,7 +103,7 @@ router.delete("/listings/:id",wrapAsync(async(req,res)=>{
     let{id}=req.params;
  
    await listing.findByIdAndDelete(id);
-   
+   req.flash('success', ' Listing has been deleted')
     res.redirect("/listings");
      
 }))

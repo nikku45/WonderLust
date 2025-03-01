@@ -28,14 +28,19 @@ body{
 /*Cards*/
 .listing-card{
     border: none !important;
+    background-color: null !important;
     margin-bottom: 1rem !important;
     padding: 0;
     
 }
 .card-img-top{
-  border-radius: 1 rem !important;
+  border-top-left-radius: 2rem !important;
+    border-top-right-radius: 2rem !important;
   width: 100% !important;
   object-fit: cover !important;
+  border-bottom-left-radius: 2rem !important;
+    border-bottom-right-radius: 2rem !important;
+
 }
 .card-body{
     padding: 0 !important;
@@ -48,9 +53,9 @@ body{
 .listing-link{
     text-decoration: none;
 }
-.card:hover{
+/* .card:hover{
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
-}
+} */
 /*Footer*/
 html, body {
     margin: 0;

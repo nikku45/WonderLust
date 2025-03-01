@@ -1,9 +1,8 @@
 const express=require("express");
 const app=express();
 const router=express.Router();
-const listing = require("../modules/listing");
-const review = require("../modules/review");
-const mongoose=require("mongoose");   
+const listing = require("../models/listing.js");
+const review = require("../models/review.js");  
 const path=require("path");
 const methodOverride=require("method-override");
 const ejsMate=require("ejs-mate");
@@ -41,7 +40,7 @@ router.post("/listings/:id/review",validatereview,wrapAsync(async(req,res)=>{
    reviewlisting.reviews.push(newreview);
    await newreview.save();
     await reviewlisting.save();
-
+   req.flash("success","Review has been added");
     res.redirect(`/listings/${id}`);
    
 }))
@@ -51,6 +50,7 @@ router.delete("/listings/:id/reviews/:reviewId",wrapAsync(async(req,res)=>{
     let {id,reviewId}=req.params;
     await review.findByIdAndDelete(reviewId);
     await listing.findByIdAndUpdate(id,{$pull:{review:reviewId}})
+    req.flash("success","Review has been deleted");
     res.redirect(`/listings/${id}`);
 }))
 module.exports=router;

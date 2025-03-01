@@ -3,15 +3,19 @@ const app=express();
 const Router=express.Router();
 const listingroute=require("./Routes/listingRoute.js");
 const reviewroute=require("./Routes/reviewroute.js");
+const userRoute=require("./Routes/userRoute.js");
 const mongoose=require("mongoose");
-const listing = require("./modules/listing");
-const review = require("./modules/review");
 const path=require("path");
 const methodOverride=require("method-override");
 const ejsMate=require("ejs-mate");
-const wrapAsync=require("./utils/WrapAsync.js")
 const ExpressError=require("./utils/ExpressError.js")
-const {listingSchema,reviewSchema}=require("./schema.js");
+const session=require("express-session");
+const flash=require("connect-flash");
+const user=require("./models/user.js");
+const LocalStrategy=require("passport-local");
+const passport=require("passport");
+const User = require("./models/user.js");
+
 
 
 
@@ -42,9 +46,32 @@ main().then(()=>{
         console.log("server is listening on port:8080");
     
     })
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
 
+app.use(session({
+        secret: 'keyboard cat',
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: false }
+}))
+app.use(passport.initialize());
+app.use(passport.session());    
+app.use(flash());
+
+
+
+app.use((req,res,next)=>{
+    res.locals.success=req.flash("success");
+    res.locals.error=req.flash("error");
+    next();
+})
+
+ 
 app.use("/",listingroute);
 app.use("/",reviewroute);
+app.use("/",userRoute);
 
 
 

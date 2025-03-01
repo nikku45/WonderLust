@@ -1,0 +1,13 @@
+<% if (success && success.length) { %>
+<div class="alert alert-success alert-dismissible fade show col-md-6 offset-3" role="alert">
+<%= success %>
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% } %>
+<% if (error && error.length) { %>
+<div class="alert alert-danger alert-dismissible fade show mt-2rem" role="alert">   
+<%= error %>    
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% } %>
+<!-- The flash.ejs file is a partial that will be included in the boilerplate.ejs file. It will display a success or error message based on the value of the success or error variable. -->

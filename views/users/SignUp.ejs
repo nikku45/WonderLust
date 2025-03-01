@@ -1,0 +1,55 @@
+<% layout("layouts/boilerplate") %>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-3">
+                <form  class="form-box needs-validation" method="post" action="/signup"   novalidate>
+                    <h1 class="form-title">Sign Up</h1>     
+                    <label for="username" class="form-label">Username</label>
+                    <input id="username" name="username" class="form-input form-control" placeholder="Enter username" required>
+                    <label for="email" class="form-label">Email</label>
+                    <input id="email" name="email" class="form-input form-control" placeholder="Enter email" required>
+                    <label for="password" class="form-label">Password</label>
+                    <input id="password" name="password" class="form-input form-control" placeholder="Enter password" type="password" required>
+                    <button type="submit" class="btn btn-success">Sign Up</button>
+                </form>
+              </div>
+        </div>
+    </div>
+   
+</body> -->
+<!--
+<!-- <% layout("layouts/boilerplate") %>
+<body>
+    <div class="container">
+        <div id="loginForm">
+            <h2>Welcome Back!</h2>
+            <p>Login to your account</p>
+            <input type="email" class="input-field" placeholder="Email">
+            <input type="password" class="input-field" placeholder="Password">
+            <button class="button">Login</button>
+            <p class="toggle" onclick="toggleForms()">Don't have an account? Sign Up</p>
+        </div>
+
+        <div id="signupForm" class="hidden">
+            <h2>Join the Fun!</h2>
+            <p>Sign up for an amazing journey</p>
+            <input type="text" class="input-field" placeholder="Username">
+            <input type="email" class="input-field" placeholder="Email">
+            <input type="password" class="input-field" placeholder="Password">
+            <button class="button">Sign Up</button>
+            <p class="toggle" onclick="toggleForms()">Already have an account? Login</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleForms() {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            loginForm.classList.toggle('hidden');
+            signupForm.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html> -->
+
