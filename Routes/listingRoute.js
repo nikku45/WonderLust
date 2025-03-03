@@ -8,6 +8,8 @@ const ejsMate=require("ejs-mate");
 const wrapAsync=require("../utils/WrapAsync.js")
 const ExpressError=require("../utils/ExpressError.js")
 const {listingSchema}=require("../schema.js");
+const {isLoggedin,isOwner,isAuthor}=require("../middleware.js");
+
 
 
 app.set("view engine","ejs");
@@ -46,13 +48,14 @@ router.get("/listings",async (req,res)=>{
     res.render("listings/index.ejs",{ alllistings });
 })
 //create route
-router.get("/listings/new",(req,res)=>{
+router.get("/listings/new",isLoggedin,(req,res)=>{
     res.render("listings/new.ejs");
 })
 router.post("/listing",validateListing,wrapAsync(async(req,res,next)=>{
      
      
         let newlisting=new listing(req.body)
+        newlisting.owner=req.user._id;
         let result=await newlisting.save()
        
         req.flash('success', 'New Listing has been added');
@@ -64,7 +67,14 @@ router.post("/listing",validateListing,wrapAsync(async(req,res,next)=>{
 router.get("/listings/:id",wrapAsync(async(req,res)=>{
     let { id }=req.params;
     console.log(id);
-    let flisting=await listing.findById(id).populate("reviews");
+    let flisting=await listing.findById(id)
+    .populate({
+        path: 'reviews',
+        populate: {
+            path: 'author'
+        }
+    })
+    .populate("owner");
     if(!flisting){
         req.flash('error', 'Cannot find that listing');
         return res.redirect("/listings");
@@ -74,7 +84,7 @@ router.get("/listings/:id",wrapAsync(async(req,res)=>{
 }))
 
 //edit route
-router.get("/listings/:id/edit",wrapAsync(async(req,res)=>{
+router.get("/listings/:id/edit",isLoggedin,wrapAsync(async(req,res)=>{
     let {id}=req.params;
     console.log(id);
     const flisting= await listing.findById(id);
@@ -85,7 +95,7 @@ router.get("/listings/:id/edit",wrapAsync(async(req,res)=>{
     res.render("listings/edit.ejs",{flisting});
     }))
 //update route
-router.put("/listings/:id",wrapAsync(async(req,res)=>{
+router.put("/listings/:id",isOwner,isLoggedin,wrapAsync(async(req,res)=>{
     let {id}=req.params;
     console.log(id);
     let {description,price}=req.body;
@@ -99,7 +109,7 @@ router.put("/listings/:id",wrapAsync(async(req,res)=>{
 //------------------------------------------
 
 //delet route
-router.delete("/listings/:id",wrapAsync(async(req,res)=>{
+router.delete("/listings/:id",isOwner,isLoggedin,wrapAsync(async(req,res)=>{
     let{id}=req.params;
  
    await listing.findByIdAndDelete(id);

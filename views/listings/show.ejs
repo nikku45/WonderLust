@@ -6,56 +6,64 @@
             <img class="listing-image" src="<%= flisting.image.url %>" alt="<%= flisting.title %>">
         </a>
         <p class="listing-description"><%= flisting.description %></p>
-        <h6 class="listing-price"><%= Number(flisting.price).toLocaleString("en-IN") %>
-        </h6>
-
-        <div class="listing-actions">
-            <a class="edit-link" href="/listings/<%= flisting._id %>/edit">Edit this listing</a>
-            <form method="post" action="/listings/<%= flisting._id %>?_method=DELETE">
-                <button class="delete-button">Delete</button>
-            </form>
-        </div>
+        <h6 class="listing-price"><%= Number(flisting.price).toLocaleString("en-IN") %></h6>
+         <% if(currentUser && currentUser.equals(flisting.owner._id)){%>
+            <div class="listing-actions">
+                <a class="edit-link" href="/listings/<%= flisting._id %>/edit">Edit this listing</a>
+                <form method="post" action="/listings/<%= flisting._id %>?_method=DELETE">
+                    <button class="delete-button">Delete</button>
+                </form>
+            </div>
+        <% } %>
+       
     </div>
     <hr>
-    <div class="review">
-        <h3>Reviews</h3>
-        <form action="/listings/<%= flisting._id %>/review" method="post" class=" needs-validation" novalidate>
-            <div class="rating" >
-                <input type="radio" id="star5" name="rating" value="5"required />
-                <label for="star5" title="5 stars">★</label>
-                <input type="radio" id="star4" name="rating" value="4" />
-                <label for="star4" title="4 stars">★</label>
-                <input type="radio" id="star3" name="rating" value="3" />
-                <label for="star3" title="3 stars">★</label>
-                <input type="radio" id="star2" name="rating" value="2" />
-                <label for="star2" title="2 stars">★</label>
-                <input type="radio" id="star1" name="rating" value="1" />
-                <label for="star1" title="1 star">★</label>
-              </div>
-              
-            <div class="comments" >
-                <label for="comments" class="form-label">Comments</label>
-                <textarea name="comments" id="comments" cols="20" rows="8" class="form-input form-control" required></textarea>
-            </div>
-            <div class="submit mb-3">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-            
-        </form>
-    </div>
+   <% if(currentUser){%>
+        <div class="review">
+            <h3>Reviews</h3>
+            <form action="/listings/<%= flisting._id %>/review" method="post" class=" needs-validation" novalidate>
+                <div class="rating" >
+                    <input type="radio" id="star5" name="rating" value="5"required />
+                    <label for="star5" title="5 stars">★</label>
+                    <input type="radio" id="star4" name="rating" value="4" />
+                    <label for="star4" title="4 stars">★</label>
+                    <input type="radio" id="star3" name="rating" value="3" />
+                    <label for="star3" title="3 stars">★</label>
+                    <input type="radio" id="star2" name="rating" value="2" />
+                    <label for="star2" title="2 stars">★</label>
+                    <input type="radio" id="star1" name="rating" value="1" />
+                    <label for="star1" title="1 star">★</label>
+                  </div>
+                  
+                <div class="comments" >
+                    <label for="comments" class="form-label">Comments</label>
+                    <textarea name="comments" id="comments" cols="20" rows="8" class="form-input form-control" required></textarea>
+                </div>
+                <div class="submit mb-3">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                
+            </form>
+        </div>
+   <%}%>
+    
     <hr>
     <p><b>All Reviews</b></p>
     <div class="row">
        <% for(review of flisting.reviews ){%>
         <div class="card col-5 mb-3 ms-3">
             <div class="card-body">
-                <h5 class="card-title">username</h5>
+                <h5 class="card-title"><%=review.author.username%></h5>
                 <p class="card-text"><%=review.comments%></p>
                 <P class="card-text"><%=review.rating%></P>
             </div>
-            <form method="POST" action="/listings/<%= flisting._id %>/reviews/<%= review._id %>?_method=DELETE">
-                <button class="btn btn-sm mb-1 btn-dark" type="submit">Delete</button>
-            </form>
+            
+           <% if( currentUser && currentUser.equals(review.author._id)){%>
+                <form method="POST" action="/listings/<%= flisting._id %>/reviews/<%= review._id %>?_method=DELETE">
+                    <button class="btn btn-sm mb-1 btn-dark" type="submit">Delete</button>
+                </form>
+           <%}%>
+          
             
         </div>
       <% }%>

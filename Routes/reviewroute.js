@@ -9,6 +9,7 @@ const ejsMate=require("ejs-mate");
 const wrapAsync=require("../utils/WrapAsync.js")
 const ExpressError=require("../utils/ExpressError.js")
 const {reviewSchema}=require("../schema.js");
+const {isLoggedin}=require("../middleware.js")
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"../views"));
@@ -31,13 +32,14 @@ const validatereview=(req,res,next)=>{
     }
 }
 
-router.post("/listings/:id/review",validatereview,wrapAsync(async(req,res)=>{
+router.post("/listings/:id/review",isLoggedin,validatereview,wrapAsync(async(req,res)=>{
    
     let {id}=req.params;
     let {comments,rating}=req.body;
     let reviewlisting=await listing.findById(id);
     let newreview=new review({comments:comments,rating:rating});
-   reviewlisting.reviews.push(newreview);
+    newreview.author=req.user;
+    reviewlisting.reviews.push(newreview);
    await newreview.save();
     await reviewlisting.save();
    req.flash("success","Review has been added");
