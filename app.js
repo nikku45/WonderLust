@@ -15,6 +15,8 @@ const user=require("./models/user.js");
 const LocalStrategy=require("passport-local");
 const passport=require("passport");
 const User = require("./models/user.js");
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 
 
@@ -70,8 +72,8 @@ app.use((req,res,next)=>{
 })
 
  
-app.use("/",listingroute);
-app.use("/",reviewroute);
+app.use("/listings",listingroute);
+app.use("/listings",reviewroute);
 app.use("/",userRoute);
 
 

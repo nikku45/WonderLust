@@ -1,7 +1,7 @@
 <% layout("layouts/boilerplate") %>
 <body>
     
-    <form  class="form-box needs-validation" method="post" action="/listing"   novalidate>
+    <form  class="form-box needs-validation" method="post" action="/listings"   novalidate>
         <h1 class="form-title">Enter Details For Adding New Listing</h1>
 
         <label for="title" class="form-label">Title</label>
@@ -10,6 +10,8 @@
 
         <label for="url" class="form-label">Image URL</label>
         <input id="url" name="image[url]" class="form-input form-control" placeholder="Enter image URL" required>
+
+        
 
         <label for="description" class="form-label">Description</label>
         <input id="description" name="description" class="form-input form-control" placeholder="Enter description" required>
