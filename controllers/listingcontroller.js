@@ -8,12 +8,16 @@ module.exports.index=async (req,res)=>{
 }
 
 module.exports.createnew=async(req,res)=>{
-    console.log("triggered");
+    let path=req.file.path;
+    let filename=req.file.filename;
+    console.log(`${filename,path}` );
+    console.log(req.user)
     let newlisting=new listing(req.body)
-    newlisting.owner=req.user._id;
-    console.log(newlisting)
-    let result=await newlisting.save()
-   console.log(result)
+    newlisting.owner=req.user.id;
+    newlisting.image.url=path;
+    newlisting.image.filename=filename;
+    let result=await newlisting.save();
+    
     req.flash('success', 'New Listing has been added');
     res.redirect("/listings");
 }

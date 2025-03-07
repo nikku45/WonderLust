@@ -11,6 +11,9 @@ const {listingSchema}=require("../schema.js");
 const {isLoggedin,isOwner,validateListing}=require("../middleware.js");
 const listingcontroller=require("../controllers/listingcontroller.js");
 const { route } = require("./reviewroute.js");
+const multer  = require('multer')
+const { storage }=require('../cloudConfig.js')
+const upload = multer({ storage })
 
 
 
@@ -32,7 +35,7 @@ router.get("/new",isLoggedin,(req,res)=>{
 
 router.route("/")
 .get(listingcontroller.index)
-.post(validateListing,wrapAsync(listingcontroller.createnew))
+.post(upload.single('image'),validateListing,wrapAsync(listingcontroller.createnew))
 
 router.get("/:id/edit",isLoggedin,wrapAsync(async(req,res)=>{
     let {id}=req.params;

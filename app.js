@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express=require("express");
 const app=express();
 const Router=express.Router();
@@ -15,8 +16,7 @@ const user=require("./models/user.js");
 const LocalStrategy=require("passport-local");
 const passport=require("passport");
 const User = require("./models/user.js");
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+
 
 
 

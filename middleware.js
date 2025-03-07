@@ -53,6 +53,7 @@ const validateListing=(req,res,next)=>{
     console.log("Inside the middleware")
     console.log(req.body);
     const {error}=listingSchema.validate(req.body);
+    console.log(error);
     if(error){
         const msg=error.details.map(el=>el.message).join(",");
         throw new ExpressError(400,msg);
