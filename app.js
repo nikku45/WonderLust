@@ -45,6 +45,8 @@ main().then(()=>{
     async function  main(){
        await mongoose.connect(DB_URL, {
         useNewUrlParser: true,
+        useUnifiedTopology: true,
+       
         
       
     });
