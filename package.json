@@ -1,7 +1,6 @@
 {
-  "node": {
-    "version": "22.13.1",
-    "npm": "8.1.0"
+  "engines": {
+    "node":"22.13.1"
   },
   "name": "wanderlust",
   "version": "1.0.0",
