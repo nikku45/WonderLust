@@ -11,6 +11,7 @@ const methodOverride=require("method-override");
 const ejsMate=require("ejs-mate");
 const ExpressError=require("./utils/ExpressError.js")
 const session=require("express-session");
+const MongoStore=require("connect-mongo");
 const flash=require("connect-flash");
 const user=require("./models/user.js");
 const LocalStrategy=require("passport-local");
@@ -32,7 +33,8 @@ app.use(express.static(path.join(__dirname,"/public")))
 
 
 
-const mongoose_url="mongodb://127.0.0.1:27017/WanderLust";
+// const mongoose_url="mongodb://127.0.0.1:27017/WanderLust";
+const DB_URL=process.env.DB_URL;
 
 main().then(()=>{
     console.log("database connected");
@@ -41,7 +43,11 @@ main().then(()=>{
     console.log(err);
     })
     async function  main(){
-       await mongoose.connect(mongoose_url);
+       await mongoose.connect(DB_URL, {
+        useNewUrlParser: true,
+        
+      
+    });
     }
     
     app.listen(8080,()=>{
@@ -52,7 +58,15 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(user.serializeUser());
 passport.deserializeUser(user.deserializeUser());
 
+ const store=MongoStore.create({
+    mongoUrl:DB_URL,
+    touchAfter:24*60*60,
+    crypto:{
+        secret:process.env.secret   
+    }
+})
 app.use(session({
+        store,
         secret: 'keyboard cat',
         resave: false,
         saveUninitialized: true,
